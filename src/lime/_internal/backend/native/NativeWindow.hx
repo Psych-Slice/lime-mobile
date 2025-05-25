@@ -100,7 +100,9 @@ class NativeWindow
 		if (contextAttributes.depth) flags |= cast WindowFlags.WINDOW_FLAG_DEPTH_BUFFER;
 		if (contextAttributes.hardware) flags |= cast WindowFlags.WINDOW_FLAG_HARDWARE;
 		if (contextAttributes.stencil) flags |= cast WindowFlags.WINDOW_FLAG_STENCIL_BUFFER;
-		if (contextAttributes.vsync) flags |= cast WindowFlags.WINDOW_FLAG_VSYNC;
+		var file:String = lime.system.System.applicationStorageDirectory + "vsync.txt";
+        	var vsyncOption:Bool = sys.FileSystem.exists(file) ? sys.io.File.getContent(file).toLowerCase() == "true" : false;
+		if (contextAttributes.vsync || vsyncOption) flags |= cast WindowFlags.WINDOW_FLAG_VSYNC;
 
 		var width = Reflect.hasField(attributes, "width") ? attributes.width : #if desktop 800 #else 0 #end;
 		var height = Reflect.hasField(attributes, "height") ? attributes.height : #if desktop 600 #else 0 #end;
