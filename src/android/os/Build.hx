@@ -157,7 +157,7 @@ class VERSION
 	/**
 	 * The base OS build the product is based on.
 	 */
-	public static final BASE_OS:String = JNICache.createStaticField("android/os/Build$VERSION", 'BASE_OS', 'Ljava/lang/String;').get();
+	public static final BASE_OS:String =  (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) ? JNICache.createStaticField("android/os/Build$VERSION", 'BASE_OS', 'Ljava/lang/String;').get() : "Android 5.0 or older";
 
 	/**
 	 * The current development codename, or the string "REL" if this is a release build.
@@ -199,7 +199,7 @@ class VERSION
 	 * The developer preview revision of a prerelease SDK.
 	 * This value will always be 0 on production platform builds/devices.
 	 */
-	public static final PREVIEW_SDK_INT:Int = JNICache.createStaticField("android/os/Build$VERSION", 'PREVIEW_SDK_INT', 'I').get();
+	public static final PREVIEW_SDK_INT:Int = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) ? JNICache.createStaticField("android/os/Build$VERSION", 'PREVIEW_SDK_INT', 'I').get() : 0;
 
 	/**
 	 * The version string.
@@ -221,7 +221,7 @@ class VERSION
 	 * The user-visible security patch level.
 	 * This value represents the date when the device most recently applied a security patch.
 	 */
-	public static final SECURITY_PATCH:String = JNICache.createStaticField("android/os/Build$VERSION", 'SECURITY_PATCH', 'Ljava/lang/String;').get();
+	public static final SECURITY_PATCH:String = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) ? JNICache.createStaticField("android/os/Build$VERSION", 'SECURITY_PATCH', 'Ljava/lang/String;').get() : "Unknown";
 }
 
 /**

@@ -261,11 +261,15 @@ public class GameActivity extends SDLActivity {
 		}
 
 		assetManager = getAssets ();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			if (checkSelfPermission(Manifest.permission.VIBRATE) == PackageManager.PERMISSION_GRANTED) {
 
-		if (checkSelfPermission(Manifest.permission.VIBRATE) == PackageManager.PERMISSION_GRANTED) {
+				vibrator = (Vibrator)mSingleton.getSystemService (Context.VIBRATOR_SERVICE);
 
+			}
+		}
+		else{
 			vibrator = (Vibrator)mSingleton.getSystemService (Context.VIBRATOR_SERVICE);
-
 		}
 
 		handler = new Handler ();
