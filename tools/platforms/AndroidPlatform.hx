@@ -612,12 +612,14 @@ class AndroidPlatform extends PlatformTarget
 			for (i in 0...iconTypes.length)
 			{
 				// create multiple icons, only set "android:icon" once
-				if (IconHelper.createIcon(icons, iconSizes[i], iconSizes[i], sourceSet + "/res/drawable-" + iconTypes[i] + "/icon.png")
+				if (IconHelper.createIcon(icons, iconSizes[i], iconSizes[i], sourceSet + "/res/mipmap-" + iconTypes[i] + "-v4/ic_launcher.png")
 					&& !context.HAS_ICON)
 				{
 					context.HAS_ICON = true;
-					context.ANDROID_APPLICATION.push({ key: "android:icon", value: "@drawable/icon" });
+					context.ANDROID_APPLICATION.push({ key: "android:icon", value: "@mipmap/ic_launcher" });
 				}
+				// make for Oreo users
+				IconHelper.createIcon(icons, iconSizes[i], iconSizes[i], sourceSet + "/res/drawable-" + iconTypes[i] + "-v4/icon.png");
 			}
 
 			IconHelper.createIcon(icons, 732, 412, sourceSet + "/res/drawable-xhdpi/ouya_icon.png");
