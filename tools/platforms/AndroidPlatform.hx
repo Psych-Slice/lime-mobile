@@ -486,6 +486,7 @@ class AndroidPlatform extends PlatformTarget
 
 		context.ANDROID_APPLICATION = project.config.getKeyValueArray("android.application", {
 			"android:label": project.meta.title,
+			"android:appCategory":"game",
 			"android:allowBackup": "true",
 			"android:theme": "@style/LimeAppMainTheme" + (project.window.fullscreen ? "Fullscreen" : ""),
 			"android:hardwareAccelerated": "true",
