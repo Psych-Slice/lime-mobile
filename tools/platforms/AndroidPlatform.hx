@@ -490,6 +490,7 @@ class AndroidPlatform extends PlatformTarget
 			"android:allowBackup": "true",
 			"android:theme": "@style/LimeAppMainTheme" + (project.window.fullscreen ? "Fullscreen" : ""),
 			"android:hardwareAccelerated": "true",
+			"android:appCategory": "game" ,
 			"android:allowNativeHeapPointerTagging": context.ANDROID_TARGET_SDK_VERSION >= 30 ? "false" : null,
 			"android:requestLegacyExternalStorage": context.ANDROID_TARGET_SDK_VERSION >= 29 ? "true" : null,
 			"android:preserveLegacyExternalStorage": context.ANDROID_TARGET_SDK_VERSION >= 30 ? "true" : null,
