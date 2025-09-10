@@ -588,21 +588,28 @@ class IOSPlatform extends PlatformTarget
 
 		var iconPath = Path.combine(projectDirectory, "Images.xcassets/AppIcon.appiconset");
 		System.mkdir(iconPath);
-
-		var icons = project.icons;
-
-		if (icons.length == 0)
-		{
-			icons = [new Icon(System.findTemplate(project.templatePaths, "default/icon.svg"))];
+		//* P-Slice code
+		if(!project.config.exists("ios.pslice-icon-dir")){
+			Log.error("You need to set \"ios.pslice-icon-dir\" to a folder with your icon. Yes, we need that too now!");
+			return;
 		}
+		System.recursiveCopy(project.config.getString("ios.pslice-icon-dir"),iconPath);
+		//*
 
-		for (iconSize in iconSizes)
-		{
-			if (!IconHelper.createIcon(icons, iconSize.size, iconSize.size, Path.combine(iconPath, iconSize.name)))
-			{
-				context.HAS_ICON = false;
-			}
-		}
+		// var icons = project.icons;
+
+		// if (icons.length == 0)
+		// {
+		// 	icons = [new Icon(System.findTemplate(project.templatePaths, "default/icon.svg"))];
+		// }
+
+		// for (iconSize in iconSizes)
+		// {
+		// 	if (!IconHelper.createIcon(icons, iconSize.size, iconSize.size, Path.combine(iconPath, iconSize.name)))
+		// 	{
+		// 		context.HAS_ICON = false;
+		// 	}
+		// }
 
 		if (project.launchStoryboard != null)
 		{

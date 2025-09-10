@@ -370,7 +370,7 @@ class AndroidPlatform extends PlatformTarget
 		var commands = [];
 
 		var minSDKVer = 21;
-		var platformDefine = '-DPLATFORM_NUMBER=$minSDKVer';
+		var platformDefine = '-DHXCPP_ANDROID_PLATFORM=$minSDKVer';
 
 		if (project.targetFlags.exists("ONLY_ARM64"))
 		{
@@ -600,7 +600,26 @@ class AndroidPlatform extends PlatformTarget
 				break;
 			}
 		}
-
+		// P-Slice exclusive
+		// if (project.config.exists("android.round-icon"))
+		// {
+		// 	var icons = [new Icon(project.config.getString("android.round-icon"))];
+		// 	var iconTypes = ["ldpi", "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"];
+		// 	var iconSizes = [36, 48, 72, 96, 144, 192];
+		// 	for (i in 0...iconTypes.length)
+		// 	{
+		// 		// create multiple icons, only set "android:icon" once
+		// 		if (IconHelper.createIcon(icons, iconSizes[i], iconSizes[i], sourceSet + "/res/mipmap-" + iconTypes[i] + "-v4/ic_launcher_round.png")
+		// 			&& !context.HAS_ROUND_ICON)
+		// 		{
+		// 			context.HAS_ROUND_ICON = true;
+		// 			context.ANDROID_APPLICATION.push({ key: "android:roundIcon", value: "@mipmap/ic_launcher_round" });
+		// 		}
+		// 		// make for Oreo users
+		// 		IconHelper.createIcon(icons, iconSizes[i], iconSizes[i], sourceSet + "/res/drawable-" + iconTypes[i] + "-v4/icon_round.png");
+		// 	}
+		// }
+		//
 		if (context.HAS_ICON == null)
 		{
 			var iconTypes = ["ldpi", "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"];
@@ -623,7 +642,16 @@ class AndroidPlatform extends PlatformTarget
 				// make for Oreo users
 				IconHelper.createIcon(icons, iconSizes[i], iconSizes[i], sourceSet + "/res/drawable-" + iconTypes[i] + "-v4/icon.png");
 			}
-
+			
+			var icon_xml:String = "<adaptive-icon>\n"+
+				"<background android:drawable=\"@color/yellow\" />\n"+
+				"<foreground android:drawable=\"@drawable/icon\" />\n";
+			if(project.config.exists("android.pslice-mono-icon")){
+				System.copyFile(project.config.get("android.pslice-mono-icon"),sourceSet + "/res/drawable/monochromeicon.png");
+				icon_xml +="<monochrome android:drawable=\"@drawable/monochromeicon\" />\n";
+			}
+			icon_xml +="</adaptive-icon>\n";
+			System.writeText(icon_xml,sourceSet + "/res/mipmap-anydpi-v26/ic_launcher.xml");
 			IconHelper.createIcon(icons, 732, 412, sourceSet + "/res/drawable-xhdpi/ouya_icon.png");
 		}
 
