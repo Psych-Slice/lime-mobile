@@ -651,6 +651,7 @@ class AndroidPlatform extends PlatformTarget
 				icon_xml +="<monochrome android:drawable=\"@drawable/monochromeicon\" />\n";
 			}
 			icon_xml +="</adaptive-icon>\n";
+			System.makeDirectory(sourceSet + "/res/mipmap-anydpi-v26/");
 			System.writeText(icon_xml,sourceSet + "/res/mipmap-anydpi-v26/ic_launcher.xml");
 			IconHelper.createIcon(icons, 732, 412, sourceSet + "/res/drawable-xhdpi/ouya_icon.png");
 		}
