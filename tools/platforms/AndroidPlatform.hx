@@ -643,14 +643,14 @@ class AndroidPlatform extends PlatformTarget
 				IconHelper.createIcon(icons, iconSizes[i], iconSizes[i], sourceSet + "/res/drawable-" + iconTypes[i] + "-v4/icon.png");
 			}
 			
-			var icon_xml:String = "<adaptive-icon>\n"+
-				"<background android:drawable=\"@color/yellow\" />\n"+
-				"<foreground android:drawable=\"@drawable/icon\" />\n";
+			var icon_xml:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<adaptive-icon xmlns:android=\"http://schemas.android.com/apk/res/android\">\n"+
+				"\t<background android:drawable=\"@color/yellow\" />\n"+
+				"\t<foreground android:drawable=\"@drawable/icon\" />\n";
 			if(project.config.exists("android.pslice-mono-icon")){
 				System.copyFile(project.config.get("android.pslice-mono-icon"),sourceSet + "/res/drawable/monochromeicon.png");
-				icon_xml +="<monochrome android:drawable=\"@drawable/monochromeicon\" />\n";
+				icon_xml +="\t<monochrome android:drawable=\"@drawable/monochromeicon\" />\n";
 			}
-			icon_xml +="</adaptive-icon>\n";
+			icon_xml +="</adaptive-icon>";
 			System.makeDirectory(sourceSet + "/res/mipmap-anydpi-v26/");
 			System.writeText(icon_xml,sourceSet + "/res/mipmap-anydpi-v26/ic_launcher.xml");
 			IconHelper.createIcon(icons, 732, 412, sourceSet + "/res/drawable-xhdpi/ouya_icon.png");
